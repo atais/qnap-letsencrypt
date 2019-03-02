@@ -7,8 +7,8 @@ cleanup() {
   echo "An error occured. Restoring system state."
   [ -n "$pid" ] && kill -9 $pid
   rm -rf tmp-webroot
-  /etc/init.d/stunnel.sh start
-  /etc/init.d/Qthttpd.sh start
+  #/etc/init.d/stunnel.sh start
+  /opt/etc/init.d/S80nginx start
 }
 
 # do nothing if certificate is valid for more than 30 days (30*24*60*60)
@@ -33,9 +33,9 @@ else
 fi
 
 echo "Renewing certificate..."
-echo "Stopping Qthttpd hogging port 80.."
+echo "Stopping NGINX hogging port 81.."
 
-/etc/init.d/Qthttpd.sh stop
+/opt/etc/init.d/S80nginx stop
 
 mkdir -p tmp-webroot/.well-known/acme-challenge
 cd tmp-webroot
@@ -51,10 +51,10 @@ echo "Downloading intermediate certificate..."
 wget --no-verbose -O - https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem > letsencrypt/intermediate.pem
 cat letsencrypt/signed.crt letsencrypt/intermediate.pem > letsencrypt/chained.pem
 
-echo "Stopping stunnel and setting new stunnel certificates..."
-/etc/init.d/stunnel.sh stop
-cat letsencrypt/keys/domain.key letsencrypt/chained.pem > /etc/stunnel/stunnel.pem
-cp letsencrypt/intermediate.pem /etc/stunnel/uca.pem
+#echo "Stopping stunnel and setting new stunnel certificates..."
+#/etc/init.d/stunnel.sh stop
+#cat letsencrypt/keys/domain.key letsencrypt/chained.pem > /etc/stunnel/stunnel.pem
+#cp letsencrypt/intermediate.pem /etc/stunnel/uca.pem
 
 echo "Done! Service startup and cleanup will follow now..."
 

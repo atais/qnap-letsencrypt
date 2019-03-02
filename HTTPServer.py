@@ -20,7 +20,7 @@ def main():
   
 def servev6():
   try:
-    server = HTTPServerV6(('::', 80), SimpleHTTPRequestHandler)
+    server = HTTPServerV6(('::', 81), SimpleHTTPRequestHandler)
     server.serve_forever()
   except socket.error as e:
     if e.errno == errno.EAFNOSUPPORT: # system doesn't support ipv6
@@ -29,7 +29,7 @@ def servev6():
       raise
   
 def servev4():
-  server = HTTPServer(('0.0.0.0', 80), SimpleHTTPRequestHandler)
+  server = HTTPServer(('0.0.0.0', 81), SimpleHTTPRequestHandler)
   server.serve_forever()
 
 if __name__ == '__main__':
