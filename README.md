@@ -33,7 +33,7 @@ installed. Therefore we will have to download one manually.
     ```
     git config --system http.sslVerify true
     git config --system http.sslCAinfo `pwd`/cacert.pem
-    git clone https://github.com/Yannik/qnap-letsencrypt.git
+    git clone https://github.com/atais/qnap-letsencrypt.git
     mv cacert.pem qnap-letsencrypt
     cd qnap-letsencrypt
     git config --system http.sslCAinfo `pwd`/cacert.pem
